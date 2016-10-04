@@ -1,0 +1,25 @@
+---
+
+###############################################################################
+OPENED:
+###############################################################################
+
+- id: 201602212158
+  task: add "state: latest" feature to macosx_app module with softwareupdate command
+  notes: also take this into account on make update?
+
+- id: 201601261949
+  task: macosx_app.install() not implemented.
+
+- id: 201601280620
+  task: macosx_defaults.delete() not implemented
+
+- id: 201601280621
+  task: macosx_pkg.install() not implemented
+
+###############################################################################
+CLOSED:
+###############################################################################
+
+- id: 201610042239
+  task: bootstrap role -- factored out of syskit

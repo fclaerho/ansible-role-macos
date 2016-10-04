@@ -1,0 +1,17 @@
+---
+dependencies: []
+galaxy_info:
+  author: Florent Claerhout <code@fclaerhout.fr>
+  description: N/A
+  license: MIT
+  min_ansible_version: 1.8.4
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Darwin
+    versions:
+    - all

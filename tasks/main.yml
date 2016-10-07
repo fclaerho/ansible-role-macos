@@ -1,2 +1,4 @@
 ---
 - include: apps.yml
+- include: defaults.yml
+- include: dirs.yml

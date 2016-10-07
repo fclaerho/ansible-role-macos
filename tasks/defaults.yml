@@ -1,0 +1,38 @@
+---
+
+- name: screencapture is configured
+  macos_defaults:
+    domain: com.apple.screencapture
+    key: location
+    state: present
+    value: "{{ ansible_env.HOME }}/Downloads"
+  notify:
+  - macos_restart_systemuiserver
+
+# REF: http://stackoverflow.com/a/2119076
+# DOES NOT WORK
+#- name: wallpaper is set
+#  command: defaults write com.apple.desktop Background '{default = {ImageFilePath = "~/wallpaper.jpg"; };}'
+
+- name: dock size is configured
+  macos_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    state: present
+    value: 45
+  notify:
+  - macos_restart_dock
+
+- name: QuickLook animations are disabled
+  macos_defaults:
+    domain: -g
+    key: QLPanelAnimationDuration
+    state: present
+    value: 0.0
+
+- name: Windows animations are disabled
+  macos_defaults:
+    domain: -g
+    key: NSAutomaticWindowAnimationsEnabled
+    state: present
+    value: no

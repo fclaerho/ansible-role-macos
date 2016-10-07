@@ -2,14 +2,14 @@
 
 # app present
 
-- name: MacOS app defaults are present
+- name: macOS app defaults are present
   with_items: "{{ macos_apps }}"
   when: item.state == "present" and item.defaults
   copy:
     src: "{{ item.defaults }}"
     dest: ~/Library/Preferences/
 
-- name: MacOS app is present
+- name: macOS app is present
   with_items: "{{ macos_apps }}"
   when: item.state == "present"
   macos_app:
@@ -18,14 +18,14 @@
 
 # app absent
 
-- name: MacOS app is absent
+- name: macOS app is absent
   with_items: "{{ macos_apps }}"
   when: item.state == "absent"
   macos_app:
     name: "{{ item.name }}"
     state: absent
 
-- name: MacOS app defaults are absent
+- name: macOS app defaults are absent
   with_subelements:
   - "{{ macos_apps }}"
   - domains
@@ -34,7 +34,7 @@
     domain: "{{ item.1 }}"
     state: absent
 
-- name: MacOS app extra preferences are absent
+- name: macOS app extra preferences are absent
   with_subelements:
   - "{{ macos_apps }}"
   - domains
@@ -43,14 +43,14 @@
     path: ~/Library/Preferences/{{ item.1 }}
     state: absent
 
-- name: MacOS app support is absent
+- name: macOS app support is absent
   with_items: "{{ macos_apps }}"
   when: item.state == "absent"
   file:
     path: ~/Library/MacOS app Support/{{ item.name }}
     state: absent
 
-- name: MacOS app container is absent
+- name: macOS app container is absent
   with_subelements:
   - "{{ macos_apps }}"
   - domains
@@ -59,7 +59,7 @@
     path: ~/Library/Containers/{{ item.1 }}
     state: absent
 
-- name: MacOS app package is absent
+- name: macOS app package is absent
   with_subelements:
   - "{{ macos_apps }}"
   - domains

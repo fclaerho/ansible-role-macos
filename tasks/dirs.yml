@@ -1,0 +1,7 @@
+---
+
+- name: managed directories are handled
+  with_items: "{{ macos_managed_directories }}"
+  macos_flags:
+    path: "{{ item.path }}"
+    uchange: "{{ item.locked }}"

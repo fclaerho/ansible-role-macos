@@ -4,6 +4,9 @@
 OPENED:
 ###############################################################################
 
+- id: 201610070752
+  task: factor out bits from localhost
+
 - id: 201602212158
   task: add "state: latest" feature to macosx_app module with softwareupdate command
   notes: also take this into account on make update?
@@ -22,4 +25,4 @@ CLOSED:
 ###############################################################################
 
 - id: 201610042239
-  task: bootstrap role -- factored out of syskit
+  task: bootstrap role -- factored out bits from syskit

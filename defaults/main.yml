@@ -1,2 +1,4 @@
 ---
+# list of dict {path:, locked:}
+macos_managed_directories: []
 macos_apps: []

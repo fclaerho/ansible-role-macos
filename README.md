@@ -4,6 +4,8 @@
 > This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
 > It is primarily designed for a local user, in order to setup a work environment.
 
+---
+
 Variables
 ---------
 

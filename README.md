@@ -39,7 +39,7 @@ See the `macos_defaults` module for managing defaults.
 
 | Name | Default | Description |
 |------|---------|-------------|
-| `macos_screencapture_path` | false | Set the screenshot storage location |
+| `macos_screencapture_path` | false | Set the path to store screenshots |
 | `macos_animations` | true ||
 | `macos_dock_size` | false ||
 

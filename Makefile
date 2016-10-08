@@ -2,7 +2,7 @@
 # Type "make" for help.
 # See http://stackoverflow.com/a/649462 for multiline variables in makefiles.
 
-PATH := .test
+PATH := .check
 
 define _PLAYBOOK_YML
 ---
@@ -11,15 +11,22 @@ define _PLAYBOOK_YML
   - ansible-role-macos
 endef
 
-export _PLAYBOOK_YML
+# Required for Ansible < 2
+define _INVENTORY_CFG
+localhost
+endef
 
-define _ANSIBLE_YML
+define _ANSIBLE_CFG
 [defaults]
 retry_files_enabled: False
 roles_path: ../..
+inventory: inventory.cfg
+#hostfile: inventory.cfg # Ansible < 1.9
 endef
 
-export _ANSIBLE_YML
+export _PLAYBOOK_YML
+export _INVENTORY_CFG
+export _ANSIBLE_CFG
 
 .PHONY: usage check clean
 
@@ -35,13 +42,16 @@ usage:
 $(PATH)/playbook.yml: | $(PATH)
 	@echo "$$_PLAYBOOK_YML" > $@
 
+$(PATH)/inventory.cfg: | $(PATH)
+	@echo "$$_INVENTORY_CFG" > $@
+
 $(PATH)/ansible.cfg: | $(PATH)
 	@echo "$$_ANSIBLE_YML" > $@
 
 $(PATH):
 	@mkdir $@
 
-check: $(PATH)/playbook.yml $(PATH)/ansible.cfg
+check: $(PATH)/playbook.yml $(PATH)/inventory.cfg $(PATH)/ansible.cfg
 	@cd $(PATH) && ansible-playbook playbook.yml
 	$(MAKE) clean
 

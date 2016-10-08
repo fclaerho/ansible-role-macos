@@ -3,12 +3,24 @@
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 
-[Requirements](#requirements) | [Variables](#variables) | [Dependencies](#dependencies) | [Development](#development)
+[Usage](#usage) | [Variables](#variables) | [Development](#development)
 
-Requirements
-------------
+Usage
+-----
 
-Ansible 2+, macOS 10.10+
+You can use this role in a playbook or as the dependency of another role.
+
+To be completed.
+
+<!--
+In a playbook:
+add the Galaxy ID or repository URL to the requirements file,
+then call `ansible-galaxy install -r $REQUIREMENTS`,
+or you can use it as another **role dependency**,
+by adding its ID in the `dependencies` list of the role manifest `meta/main.yml`.
+The **stable version** of this role is registered on Galaxy with the ID `fclaerho.syskit`;
+you can alternatively use this repository URL as ID for the **development version**.
+-->
 
 Variables
 ---------

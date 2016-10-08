@@ -1,5 +1,5 @@
 
-<img alt="Ansible Logo" src="ansible-logo.png" align="right" />
+<img alt="Ansible Logo" src="https://github.com/fclaerho/ansible-role-macos/blob/master/ansible-logo.png" align="right" />
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 

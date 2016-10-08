@@ -3,7 +3,7 @@
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 
-[Usage](#usage) | [Variables](#variables) | [Development](#development)
+[Usage](#usage) | [Variables](#variables) | [Development](#development) | [![Build Status](https://travis-ci.org/fclaerho/ansible-role-macos.svg?branch=master)](https://travis-ci.org/fclaerho/ansible-role-macos)
 
 
 Usage

@@ -4,6 +4,11 @@
 OPENED:
 ###############################################################################
 
+- id: 201602212134
+  bug: yes
+  task: fix macos_app -- cleanup the notification center as well
+  notes: http://stackoverflow.com/a/12121673
+
 - id: 201602212158
   task: macos_app -- add "state: latest" feature with softwareupdate command
 

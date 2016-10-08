@@ -1,0 +1,7 @@
+---
+
+- name: macos_restart_dock
+  command: killall Dock
+
+- name: macos_restart_systemuiserver
+  command: killall SystemUIServer

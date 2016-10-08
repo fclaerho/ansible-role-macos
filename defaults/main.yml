@@ -1,4 +1,6 @@
 ---
-# list of dict {path:, locked:}
-macos_managed_directories: []
+macos_screencapture_path: false
+macos_animations: false
+macos_dock_size: false
+macos_paths: []
 macos_apps: []

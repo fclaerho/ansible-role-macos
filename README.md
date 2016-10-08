@@ -1,8 +1,10 @@
 
-![Ansible Logo](ansible-logo.png)
+<img alt="Ansible Logo" src="ansible-logo.png" align="right" />
 
 This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
 It is primarily designed for a local user, in order to setup a work environment.
+
+---
 
 Variables
 =========

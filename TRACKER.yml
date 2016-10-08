@@ -4,6 +4,9 @@
 OPENED:
 ###############################################################################
 
+- id: 201610081413
+  task: refactor Makefile to support Ansible<2
+
 - id: 201602212158
   task: macos_app -- add "state: latest" feature with softwareupdate command
 

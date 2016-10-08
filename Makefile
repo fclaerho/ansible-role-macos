@@ -21,16 +21,22 @@ endef
 export _PLAYBOOK_YML
 export _ANSIBLE_CFG
 
-.PHONY: usage check clean
+export PATH += ":~/Library/Python/2.7/bin" # PEP-370
+
+.PHONY: usage install check clean
 
 usage:
 	@echo "Usage:"
 	@echo "  make RULE..."
 	@echo
 	@echo "Rules:"
-	@echo "  usage -- output this help message and exit"
-	@echo "  check -- generates and play a dummy playbook to test this role"
-	@echo "  clean -- delete test byproducts"
+	@echo "  usage   -- output this help message and exit"
+	@echo "  install -- install Ansible on macOS"
+	@echo "  check   -- generates and play a dummy playbook to test this role"
+	@echo "  clean   -- delete test byproducts"
+
+install:
+	easy_install --user ansible
 
 $(BUILD_PATH)/playbook.yml: | $(BUILD_PATH)
 	@echo "$$_PLAYBOOK_YML" > $@

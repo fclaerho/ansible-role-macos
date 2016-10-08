@@ -2,10 +2,10 @@
 dependencies: []
 galaxy_info:
   author: Florent Claerhout <code@fclaerhout.fr>
-  description: N/A
+  description: macOS support role for lusers
   license: MIT
   min_ansible_version: 1.8.4
   platforms:
-  - name: Darwin
+  - name: MacOSX
     versions:
     - all

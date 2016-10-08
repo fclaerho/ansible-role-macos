@@ -3,24 +3,9 @@
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 
+[Variables](#variables) | [Development](#development)
+
 [![Build Status](https://travis-ci.org/fclaerho/ansible-role-macos.svg?branch=master)](https://travis-ci.org/fclaerho/ansible-role-macos)
-
-[Usage](#usage) | [Variables](#variables) | [Development](#development)
-
-
-Usage
------
-
-You can use this role in a playbook or as another role's dependency.
-
-With a playbook:
-- add the Galaxy ID or repository URL to your requirements
-- run `ansible-galaxy install -r …` to install requirements
-- call the role from a `roles:` clause in a play
-
-As another role's dependency:
-- add the Galaxy ID or repository URL to the `dependencies:` list of the role manifest `meta/main.yml`
-- roles dependencies are always executed before the role that includes them
 
 
 Variables
@@ -76,4 +61,4 @@ See the macos_flags module for managing path flags.
 Development
 -----------
 
-Run `make check` to validate the role.
+Run `make check` to validate the role on macOS.

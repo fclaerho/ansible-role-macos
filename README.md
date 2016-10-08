@@ -3,20 +3,12 @@
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 
-[Usage](#usage) | [Variables](#variables) | [Development](#development)
+[Requirements](#requirements) | [Variables](#variables) | [Dependencies](#dependencies) | [Development](#development)
 
-Usage
------
+Requirements
+------------
 
-You can use this role either in a playbook or as another role dependency.
-
-With a playbook:
-- add this repository URL to the requirement file, `requirements.yml` (or .txt)
-- call this role via the `role:` clause in a play
-- run `ansible-galaxy install -r requirements.*` prior to running the playbook
-
-As another role dependency:
-- add this repository URL to the `dependencies` list of the role manifest `meta/main.yml`
+Ansible 2+, macOS 10.10+
 
 Variables
 ---------
@@ -66,6 +58,11 @@ See the macos_flags module for managing path flags.
 | Name | Default | Description |
 |------|---------|-------------|
 | `macos_paths` | [] | list of dict `{path:,locked:<bool>}` |
+
+Dependencies
+------------
+
+None.
 
 Development
 -----------

@@ -21,7 +21,7 @@ endef
 export _PLAYBOOK_YML
 export _ANSIBLE_CFG
 
-export PATH += ":~/Library/Python/2.7/bin" # PEP-370
+export PATH := $(PATH):~/Library/Python/2.7/bin:~/.local/bin
 
 .PHONY: usage install check clean
 

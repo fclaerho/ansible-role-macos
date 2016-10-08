@@ -4,6 +4,19 @@
 _This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
 It is primarily designed for a local user, in order to setup a work environment._
 
+Usage
+-----
+
+You can use this role either from a playbook or as another role dependency.
+
+With a playbook:
+- add this repository URL to the requirement file, `requirements.yml` (or .txt)
+- call this role via the `role:` clause in a play
+- run `ansible-galaxy install -r requirements.*` prior to running the playbook
+
+As another role dependency:
+- add this repository URL to the `dependencies` list of the role manifest `meta/main.yml`
+
 Variables
 ---------
 

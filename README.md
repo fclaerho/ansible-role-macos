@@ -5,22 +5,21 @@ _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS
 
 [Usage](#usage) | [Variables](#variables) | [Development](#development)
 
+
 Usage
 -----
 
-You can use this role in a playbook or as the dependency of another role.
+You can use this role in a playbook or as another role's dependency.
 
-To be completed.
+With a playbook:
+- add the Galaxy ID or repository URL to your requirements
+- run `ansible-galaxy install -r …` to install requirements
+- call the role from a `roles:` clause in a play
 
-<!--
-In a playbook:
-add the Galaxy ID or repository URL to the requirements file,
-then call `ansible-galaxy install -r $REQUIREMENTS`,
-or you can use it as another **role dependency**,
-by adding its ID in the `dependencies` list of the role manifest `meta/main.yml`.
-The **stable version** of this role is registered on Galaxy with the ID `fclaerho.syskit`;
-you can alternatively use this repository URL as ID for the **development version**.
--->
+As another role's dependency:
+- add the Galaxy ID or repository URL to the `dependencies:` list of the role manifest `meta/main.yml`
+- roles dependencies are always executed before the role that includes them
+
 
 Variables
 ---------
@@ -71,10 +70,6 @@ See the macos_flags module for managing path flags.
 |------|---------|-------------|
 | `macos_paths` | [] | list of dict `{path:,locked:<bool>}` |
 
-Dependencies
-------------
-
-None.
 
 Development
 -----------

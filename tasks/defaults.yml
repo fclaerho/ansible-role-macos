@@ -41,7 +41,7 @@
     state: present
     value: 0.0
 
-- name: Windows animations are disabled
+- name: windows animations are disabled
   when: not macos_animations
   macos_defaults:
     domain: -g

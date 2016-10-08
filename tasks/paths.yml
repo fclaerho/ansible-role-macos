@@ -1,5 +1,5 @@
 ---
-- name: managed directories are handled
+- name: directories are locked/unlocked
   with_items: "{{ macos_paths }}"
   macos_flags:
     path: "{{ item.path }}"

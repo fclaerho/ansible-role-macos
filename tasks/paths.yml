@@ -1,5 +1,4 @@
 ---
-
 - name: managed directories are handled
   with_items: "{{ macos_paths }}"
   macos_flags:

@@ -1,13 +1,16 @@
 
 <img alt="Ansible Logo" src="ansible-logo.png" align="right" />
 
-_This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
-It is primarily designed for a local user, in order to setup a work environment._
+_This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
+
+[Usage](#Usage) | [Variables](#Variables) | [Development](#Development)
+
+---
 
 Usage
 -----
 
-You can use this role either from a playbook or as another role dependency.
+You can use this role either in a playbook or as another role dependency.
 
 With a playbook:
 - add this repository URL to the requirement file, `requirements.yml` (or .txt)

@@ -2,7 +2,7 @@
 # Type "make" for help.
 # See http://stackoverflow.com/a/649462 for multiline variables in makefiles.
 
-PATH := .check
+BUILD_PATH := .check
 
 define _PLAYBOOK_YML
 ---
@@ -11,21 +11,14 @@ define _PLAYBOOK_YML
   - ansible-role-macos
 endef
 
-# Required for Ansible < 2
-define _INVENTORY_CFG
-localhost
-endef
-
 define _ANSIBLE_CFG
 [defaults]
 retry_files_enabled: False
 roles_path: ../..
 inventory: inventory.cfg
-#hostfile: inventory.cfg # Ansible < 1.9
 endef
 
 export _PLAYBOOK_YML
-export _INVENTORY_CFG
 export _ANSIBLE_CFG
 
 .PHONY: usage check clean
@@ -39,21 +32,18 @@ usage:
 	@echo "  check -- generates and play a dummy playbook to test this role"
 	@echo "  clean -- delete test byproducts"
 
-$(PATH)/playbook.yml: | $(PATH)
+$(BUILD_PATH)/playbook.yml: | $(BUILD_PATH)
 	@echo "$$_PLAYBOOK_YML" > $@
 
-$(PATH)/inventory.cfg: | $(PATH)
-	@echo "$$_INVENTORY_CFG" > $@
+$(BUILD_PATH)/ansible.cfg: | $(BUILD_PATH)
+	@echo "$$_ANSIBLE_CFG" > $@
 
-$(PATH)/ansible.cfg: | $(PATH)
-	@echo "$$_ANSIBLE_YML" > $@
-
-$(PATH):
+$(BUILD_PATH):
 	@mkdir $@
 
-check: $(PATH)/playbook.yml $(PATH)/inventory.cfg $(PATH)/ansible.cfg
-	@cd $(PATH) && ansible-playbook playbook.yml
+check: $(BUILD_PATH)/playbook.yml $(BUILD_PATH)/ansible.cfg
+	@cd $(BUILD_PATH) && ansible-playbook playbook.yml
 	$(MAKE) clean
 
 clean:
-	@-rm -rf $(PATH)
+	@-rm -rf $(BUILD_PATH)

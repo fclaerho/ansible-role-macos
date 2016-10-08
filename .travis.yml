@@ -1,13 +1,11 @@
 ---
 language: python
 python: "2.7"
-os: osx
-
+os:
+- osx
 install:
-  - make install
-
+- make install
 script:
-  - make check
-
+- make check
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -17,7 +17,7 @@ Restore (state: present) or purge (state: absent) an app.
 
 Restoring an app does not support a full install and is primarily designed for restoring a configuration.
 
-NOTICE! Purging an app includes its defaults, preferences, support, container and package. Make sure to have a backup of your application defaults beforehands.
+NOTICE! Purging an app includes its defaults, preferences, support, container and package. Make sure to have a backup of your application defaults beforehand.
 
 | Name | Default | Description |
 |------|---------|-------------|

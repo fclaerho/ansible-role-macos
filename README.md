@@ -1,16 +1,13 @@
 
-<img alt="Ansible Logo" src="ansible-logo.png" align="right" />
+<img alt="Ansible Logo" src="ansible-logo.png" align="left" />
 
-This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
-It is primarily designed for a local user, in order to setup a work environment.
-
----
+> This Ansible role brings macOS modules to manage apps, defaults, flags, and packages.
+> It is primarily designed for a local user, in order to setup a work environment.
 
 Variables
-=========
+---------
 
-Apps
-----
+### Apps
 
 Restore (state: present) or purge (state: absent) an app.
 
@@ -35,8 +32,7 @@ Example:
 	  domains:
 	  - com.viscosityvpn.Viscosity
 
-Defaults
---------
+### Defaults
 
 Configure a few system defaults.
 See the `macos_defaults` module for managing defaults.
@@ -48,8 +44,7 @@ See the `macos_defaults` module for managing defaults.
 | `macos_dock_size` | false ||
 
 
-Paths
------
+### Paths
 
 Lock/unlock directories.
 See the macos_flags module for managing path flags.
@@ -59,6 +54,6 @@ See the macos_flags module for managing path flags.
 | `macos_paths` | [] | list of dict `{path:,locked:<bool>}` |
 
 Development
-===========
+-----------
 
 Run `make check` to validate the role.

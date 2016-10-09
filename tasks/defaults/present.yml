@@ -1,0 +1,8 @@
+---
+- name: "{{ defaults.domain }} is set"
+  macos_defaults:
+    domain: "{{ defaults.domain }}"
+    key: "{{ defaults.key }}"
+    state: present
+    value: "{{ defaults.value }}"
+  notify: "{{ defaults.notify }}"

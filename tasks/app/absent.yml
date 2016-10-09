@@ -1,0 +1,35 @@
+---
+
+- name: "{{ app.name }} is absent"
+  macos_app:
+    name: "{{ app.name }}"
+    state: absent
+
+- name: "{{ app.name }} support is absent"
+  file:
+    path: "~/Library/MacOS app Support/{{ app.name }}"
+    state: absent
+
+- name: "{{ app.name }} defaults are absent"
+  with_items: "{{ app.domains }}"
+  macos_defaults:
+    domain: "{{ item }}"
+    state: absent
+
+- name: "{{ app.name }} extra preferences are absent"
+  with_items: "{{ app.domains }}"
+  file:
+    path: "~/Library/Preferences/{{ item }}"
+    state: absent
+
+- name: "{{ app.name }} container is absent"
+  with_items: "{{ app.domains }}"
+  file:
+    path: "~/Library/Containers/{{ item }}"
+    state: absent
+
+- name: "{{ app.name }} package is absent"
+  with_items: "{{ app.domains }}"
+  macos_pkg:
+    name: "{{ item }}"
+    state: absent

@@ -1,4 +1,35 @@
 ---
-- include: apps.yml
-- include: defaults.yml
-- include: paths.yml
+
+- name: macOS apps are present
+  with_items: "{{ macos_apps }}"
+  loop_control:
+    loop_var: app
+  when: app.state == "present"
+  include: app/present.yml
+
+- name: macOS apps are absent
+  with_items: "{{ macos_apps }}"
+  loop_control:
+    loop_var: app
+  when: app.state == "absent"
+  include: app/absent.yml
+
+- name: defaults are present
+  with_items: "{{ macos_defaults }}"
+  loop_control:
+    loop_var: defaults
+  when: defaults.state == "present"
+  include: defaults/present.yml
+
+- name: defaults are absent
+  with_items: "{{ macos_defaults }}"
+  loop_control:
+    loop_var: defaults
+  when: defaults.state == "absent"
+  include: defaults/absent.yml
+
+- name: directories are locked/unlocked
+  with_items: "{{ macos_paths }}"
+  macos_flags:
+    path: "{{ item.path }}"
+    uchange: "{{ item.locked }}"

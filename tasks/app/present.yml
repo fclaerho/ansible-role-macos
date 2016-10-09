@@ -1,0 +1,12 @@
+---
+
+- name: "{{ app.name }} is present"
+  macos_app:
+    name: "{{ app.name }}"
+    state: present
+
+- name: "{{ app.name }} defaults are present"
+  when: app.defaults
+  copy:
+    src: "{{ app.defaults }}"
+    dest: ~/Library/Preferences/

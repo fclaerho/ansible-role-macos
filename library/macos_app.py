@@ -3,30 +3,30 @@
 # Copyright © 2016 fclaerhout.fr — released under the MIT license.
 # WANT_JSON
 
-DOCUMENTATION = """
+DOCUMENTATION = u"""
 ---
-module: macosx_app
+module: macos_app
 description:
-- Manage OSX applications
+- manage macOS applications
 options:
   name:
     description:
-    - Application name.
+    - application name
     required: yes
   state:
     description:
-    - Either C(present) or C(absent).
+    - either C(present) or C(absent)
     required: yes
 """
 
-EXAMPLES = """
+EXAMPLES = u"""
 ---
-- macosx_app:
+- macos_app:
     name: Sublime Text 2
     state: absent
 """
 
-import subprocess, shutil, json, sys, os
+import subprocess, codecs, shutil, json, sys, os
 
 class Dir(object):
 
@@ -48,17 +48,21 @@ class App(object):
 
 	def __init__(self, name):
 		self.name = name
-		self.localdir = Dir("~", "Applications")
+		self.localdir = Dir(u"~", u"Applications")
 
 	def __call__(self, *args):
-		return subprocess.check_output(args)
+		return subprocess.check_output(args).decode(u"utf-8")
 
 	def get_path(self):
-		"return .app path or None"
-		args = ["find", "/Applications"]
+		u"return .app path or None"
+		args = [u"find", u"/Applications"]
 		if self.localdir.exists():
 			args.append(self.localdir.path)
-		args += ["-mindepth", "1", "-maxdepth", "2", "-type", "d", "-name", "{}.app".format(self.name)]
+		args += [
+			u"-mindepth", u"1",
+			u"-maxdepth", u"2",
+			u"-type", u"d",
+			u"-name", u"{}.app".format(self.name)]
 		stdout = self(*args)
 		if not stdout:
 			return None
@@ -67,7 +71,7 @@ class App(object):
 				path, = stdout.splitlines()
 				return path
 			except:
-				raise Exception("multiple matching apps found -- please report this")
+				raise Exception(u"multiple matching apps found -- please report this")
 
 	def uninstall(self):
 		path = self.get_path()
@@ -89,36 +93,36 @@ class App(object):
 			raise NotImplementedError
 
 def succeed(changed, **kwargs):
-	kwargs.update({"changed": changed})
+	kwargs.update({u"changed": changed})
 	print json.dumps(kwargs)
 	raise SystemExit
 
 def fail(msg):
 	print json.dumps({
-		"failed": True,
-		"msg": msg,
+		u"failed": True,
+		u"msg": msg,
 	})
 	raise SystemExit(1)
 
 def main():
 	if len(sys.argv) < 2:
-		raise SystemExit("usage: {} <path>".format(sys.argv[0]))
-	with open(sys.argv[1], "r") as fp:
+		raise SystemExit(u"usage: {} <path>".format(sys.argv[0]))
+	with codecs.open(sys.argv[1], encoding = u"utf-8") as fp:
 		args = json.load(fp)
-	state = args["state"]
-	name = args["name"]
+	state = args[u"state"]
+	name = args[u"name"]
 	try:
-		if state == "present":
+		if state == u"present":
 			changed = App(name).install()
-		elif state == "absent":
+		elif state == u"absent":
 			changed = App(name).uninstall()
 		else:
-			raise Exception("{}: invalid state".format(state))
+			raise Exception(u"{}: invalid state".format(state))
 		succeed(
 			changed = changed,
 			state = state,
 			name = name)
 	except Exception as exc:
-		fail("{}: {}".format(type(exc).__name__, exc))
+		fail(u"{}: {}".format(type(exc).__name__, exc))
 
-if __name__ == "__main__": main()
+if __name__ == u"__main__": main()

@@ -43,15 +43,36 @@ See the `macos_defaults` module for managing defaults.
 
 | Name | Default | Description |
 |------|---------|-------------|
-| `macos_screencapture_path` | false | Set the path to store screenshots |
-| `macos_animations` | true ||
-| `macos_dock_size` | false ||
+| `macos_defaults` | [] | List of dict `{}` |
 
+Example:
+
+	macos_defaults:
+	- domain: com.apple.screencapture
+	  state: present
+	  key: location
+	  value: "{{ ansible_env.HOME }}/Downloads"
+	  notify:
+	  - macos_restart_systemuiserver
+	- domain: com.apple.dock
+	  state: present
+	  key: tilesize
+	  value: 45
+	  notify:
+	  - macos_restart_dock
+	- domain: -g
+	  state: present
+	  key: QLPanelAnimationDuration
+	  value: 0.0
+	- domain: -g
+	  state: present
+	  key: NSAutomaticWindowAnimationsEnabled
+	  value: no
 
 ### Paths
 
 Lock/unlock directories (as Finder.)
-See the macos_flags module for managing path flags.
+See the `macos_flags` module for managing path flags.
 
 | Name | Default | Description |
 |------|---------|-------------|

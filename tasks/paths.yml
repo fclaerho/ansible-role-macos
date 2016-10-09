@@ -1,6 +1,0 @@
----
-- name: directories are locked/unlocked
-  with_items: "{{ macos_paths }}"
-  macos_flags:
-    path: "{{ item.path }}"
-    uchange: "{{ item.locked }}"

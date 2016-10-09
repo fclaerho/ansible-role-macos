@@ -1,0 +1,6 @@
+---
+- name: "{{ defaults.domain }} is reset"
+  macos_defaults:
+    domain: "{{ defaults.domain }}"
+    state: absent
+  notify: "{{ defaults.notify }}"

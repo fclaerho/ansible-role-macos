@@ -20,6 +20,7 @@ export _USAGE
 define _PLAYBOOK_YML
 ---
 - hosts: localhost
+  gather_facts: False
   roles:
   - ansible-role-macos
 endef

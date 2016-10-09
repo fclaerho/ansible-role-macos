@@ -1,6 +1,15 @@
 ---
-macos_screencapture_path: false
-macos_animations: false
-macos_dock_size: false
+macos_defaults: []
+# - domain: com.apple.screencapture
+#   state: present
+#   key: location
+#   value: "{{ ansible_env.HOME }}/Downloads"
+#   notify:
+#   - macos_restart_systemuiserver
 macos_paths: []
 macos_apps: []
+# - name: Visual Studio Code
+#   state: absent
+#   domains:
+#   - com.microsoft.VSCode
+#   defaults: no

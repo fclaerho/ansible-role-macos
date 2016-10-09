@@ -28,6 +28,9 @@ OPENED:
 CLOSED:
 ###############################################################################
 
+- id: 201610092349
+  task: refactor present/absent scheme
+
 - id: 201610081413
   task: update Makefile to support Ansible<2
 

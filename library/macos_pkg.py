@@ -3,38 +3,38 @@
 # Copyright © 2016 fclaerhout.fr — released under the MIT license.
 # WANT_JSON
 
-DOCUMENTATION = """
+DOCUMENTATION = u"""
 ---
-module: macosx_pkg
+module: macos_pkg
 description:
-- Manage OSX Installer packages
+- manage macOS packages
 options:
   name:
     description:
-    - Package id.
+    - package id
     default: no
   state:
     description:
-    - Either C(present) or C(absent).
+    - either C(present) or C(absent)
     default: no
 """
 
-EXAMPLES = """
+EXAMPLES = u"""
 ---
-- macosx_pkg:
+- macos_pkg:
     name: com.example.Foo
     state: absent
 """
 
-import subprocess, json, sys, os
+import subprocess, codecs, json, sys, os
 
 class Pkgutil(object):
 
 	def __call__(self, *args):
-		return subprocess.check_output(args)
+		return subprocess.check_output(args).decode(u"utf-8")
 
 	def list(self):
-		return sorted(self("pkgutil", "--packages").splitlines())
+		return sorted(self(u"pkgutil", u"--packages").splitlines())
 
 	def is_installed(self, name):
 		return name in self.list()
@@ -49,17 +49,17 @@ class Pkgutil(object):
 		if self.is_installed(name):
 			# fetch package installation directory:
 			info = {}
-			for line in self("pkgutil", "--pkg-info", name).splitlines():
+			for line in self(u"pkgutil", u"--pkg-info", name).splitlines():
 				key, value = line.split(":")
 				info[key.strip()] = value.strip()
-			dirname = os.path.join(info["volume"], info["location"])
+			dirname = os.path.join(info[u"volume"], info[u"location"])
 			# fetch file list:
-			stdout = self("pkgutil", "--files", name)
+			stdout = self(u"pkgutil", u"--files", name)
 			paths = tuple(os.path.join(dirname, line) for line in stdout.splitlines())
 			# ask user for confirmation:
 			if interactive:
 				print "\n".join(paths)
-				if raw_input("Proceed (y/n)? ") != "y": return
+				if raw_input(u"Proceed (y/n)? ") != u"y": return
 			# delete files first...
 			for path in filter(os.path.isfile, paths):
 				if os.path.exists(path):
@@ -70,47 +70,47 @@ class Pkgutil(object):
 					if not os.listdir(path):
 						os.rmdir(path)
 					else:
-						sys.stderr.write("{}: skipping non-empty directory\n".format(path))
-			self("pkgutil", "--forget", name)
-			assert not self.is_installed(name), "failed to uninstall package -- you might miss credentials"
+						sys.stderr.write(u"{}: skipping non-empty directory\n".format(path))
+			self(u"pkgutil", u"--forget", name)
+			assert not self.is_installed(name), u"failed to uninstall package -- you might miss credentials"
 			return True
 		else:
 			return False
 
 def succeed(changed, **kwargs):
-	kwargs.update({"changed": changed})
+	kwargs.update({u"changed": changed})
 	print json.dumps(kwargs)
 	raise SystemExit
 
 def fail(msg):
 	print json.dumps({
-		"failed": True,
-		"msg": msg,
+		u"failed": True,
+		u"msg": msg,
 	})
 	raise SystemExit(1)
 
 def main():
 	if len(sys.argv) < 2:
-		raise SystemExit("usage: {} <path>".format(sys.argv[0]))
-	with open(sys.argv[1], "r") as fp:
+		raise SystemExit(u"usage: {} <path>".format(sys.argv[0]))
+	with codecs.open(sys.argv[1], encoding = u"utf-8") as fp:
 		args = json.load(fp)
-	name = args["name"]
-	state = args["state"]
+	name = args[u"name"]
+	state = args[u"state"]
 	pkgutil = Pkgutil()
 	try:
-		if args["state"] == "present":
+		if args[u"state"] == u"present":
 			changed = Pkgutil().install(name)
-		elif args["state"] == "absent":
+		elif args[u"state"] == u"absent":
 			changed = Pkgutil().uninstall(
 				name = name,
 				interactive = False)
 		else:
-			raise Exception("{}: invalid state".format(state))
+			raise Exception(u"{}: invalid state".format(state))
 		succeed(
 			changed = changed,
 			state = state,
 			name = name)
 	except Exception as exc:
-		fail("{}: {}".format(type(exc).__name__, exc))
+		fail(u"{}: {}".format(type(exc).__name__, exc))
 
-if __name__ == "__main__": main()
+if __name__ == u"__main__": main()

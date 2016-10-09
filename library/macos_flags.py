@@ -3,97 +3,97 @@
 # Copyright © 2016 fclaerhout.fr — released under the MIT license.
 # WANT_JSON
 
-DOCUMENTATION = """
+DOCUMENTATION = u"""
 ---
-module: macosx_flags
+module: macos_flags
 description:
-- Manage OSX file flags
+- manage macOS file flags
 options:
   path:
     description:
-    - File path.
+    - file path
     required: yes
   archived:
     description:
-    - Boolean.
-    - Archived flag (super-user only.)
+    - boolean
+    - archived flag (super-user only)
     required: no
   opaque:
     description:
-    - Boolean.
-    - Opaque flag (owner or super-user only.)
-    - Directory is opaque when viewed through a union mount.
+    - boolean
+    - opaque flag (owner or super-user only)
+    - directory is opaque when viewed through a union mount
     required: no
   dump:
     description:
-    - Boolean.
+    - boolean
     required: no
   sappend:
     description:
-    - Boolean.
-    - Set the system append-only flag (super-user only.)
-    - May only be unset when the system is in single-user mode.
+    - boolean
+    - set the system append-only flag (super-user only)
+    - may only be unset when the system is in single-user mode
     required: no
   schange:
     description:
-    - Boolean.
-    - Set the system immutable flag (super-user only.)
-    - May only be unset when the system is in single-user mode.
+    - boolean
+    - set the system immutable flag (super-user only)
+    - may only be unset when the system is in single-user mode
     required: no
   uappend:
     description:
-    - Boolean.
-    - Set the user append-only flag (owner or super-user only.)
+    - boolean
+    - set the user append-only flag (owner or super-user only)
     required: no
   uchange:
     description:
-    - Boolean.
-    - Set the user immutable flag (owner or super-user only)
+    - boolean
+    - set the user immutable flag (owner or super-user only)
     required: no
   hidden:
     description:
-    - Boolean.
-    - Hide item from GUI.
+    - boolean
+    - hide item from GUI
     required: no
 """
 
-EXAMPLES = """
+EXAMPLES = u"""
 ---
-- macosx_flags:
+- macos_flags:
     path: ~/Public
     uchange: yes
 """
 
-import subprocess, json, sys, os
+import subprocess, codecs, json, sys, os
 
 def get_flags(path):
 	# man chflags:
 	# You can use "ls -lO" to see the flags of existing files.
-	stdout = subprocess.check_output(("ls", "-dlO", path))
+	stdout = subprocess.check_output([u"ls", u"-dlO", path]).decode(u"utf-8")
 	_, _, _, _, value, _, _, _, _, _ = stdout.splitlines()[0].split()
-	return value.split(",") if value != "-" else ()
+	return value.split(u",") if value != u"-" else ()
 
 def set_flags(path, flags):
-	subprocess.check_call(("chflags", "-LR", ",".join(flags), path))
+	subprocess.check_call([u"chflags", u"-LR", u",".join(flags), path])
 
 ALIASES = {
-	"archived": ("arch",),
-	"opaque": (),
-	"dump": (),
-	"sappend": ("sappnd",),
-	"schange": ("schg", "simmutable"), # system immutable
-	"uappend": ("uappnd",),
-	"uchange": ("uchg", "uimmutable"), # user immutable
-	"hidden": (),
+	u"archived": [u"arch"],
+	u"opaque": [],
+	u"dump": [],
+	u"sappend": [u"sappnd"],
+	u"schange": [u"schg", u"simmutable"], # system immutable
+	u"uappend": [u"uappnd"],
+	u"uchange": [u"uchg", u"uimmutable"], # user immutable
+	u"hidden": [],
 }
 
 # from manpage:
 # Putting/removing the letters "no" before/from a keyword causes the flag to be cleared.
 def normalized(flags):
-	"normalize a list of flags"
+	u"normalize a list of flags"
 	result = []
 	for item in flags:
-		if item.startswith("no"):
+		if item.startswith(u"no"):
 			negated = True
 			item = item[2:]
 		else:
@@ -106,32 +106,32 @@ def normalized(flags):
 					flag = key
 					break
 			else:
-				raise KeyError("{}: no such flag".format(item))
-		result.append("no{}".format(flag) if negated else flag)
+				raise KeyError(u"{}: no such flag".format(item))
+		result.append(u"no{}".format(flag) if negated else flag)
 	return result
 
 def succeed(changed, **kwargs):
-	kwargs.update({"changed": changed})
+	kwargs.update({u"changed": changed})
 	print json.dumps(kwargs)
 	raise SystemExit
 
 def fail(msg):
 	print json.dumps({
-		"failed": True,
-		"msg": msg,
+		u"failed": True,
+		u"msg": msg,
 	})
 	raise SystemExit(1)
 
 def main():
 	if len(sys.argv) < 2:
-		raise SystemExit("usage: {} <path>".format(sys.argv[0]))
-	with open(sys.argv[1], "r") as fp:
+		raise SystemExit(u"usage: {} <path>".format(sys.argv[0]))
+	with codecs.open(sys.argv[1], encoding = u"utf-8") as fp:
 		args = json.load(fp)
-	path = os.path.expanduser(args["path"])
+	path = os.path.expanduser(args[u"path"])
 	flags = []
 	for key in ALIASES:
 		if key in args:
-			flags.append(key if args[key] else "no{}".format(key))
+			flags.append(key if args[key] else u"no{}".format(key))
 	try:
 		if set(normalized(get_flags(path))) == set(flags):
 			changed = False
@@ -145,6 +145,6 @@ def main():
 			flags = flags,
 			path = path)
 	except Exception as exc:
-		fail("{}: {}".format(type(exc).__name__, exc))
+		fail(u"{}: {}".format(type(exc).__name__, exc))
 
-if __name__ == "__main__": main()
+if __name__ == u"__main__": main()

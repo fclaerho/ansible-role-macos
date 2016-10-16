@@ -1,4 +1,5 @@
 ---
+macos_tool_state: ignored
 macos_defaults: []
 # - domain: com.apple.screencapture
 #   state: present

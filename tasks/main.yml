@@ -1,5 +1,18 @@
 ---
 
+- name: macOS tool is present
+  when: macos_tool_state == "present"
+  copy:
+    src: macos
+    dest: ~/bin/macos
+    mode: "755"
+
+- name: macOS tool is absent
+  when: macos_tool_state == "absent"
+  file:
+    path: ~/bin/macos
+    state: absent
+
 - name: macOS apps are present
   with_items: "{{ macos_apps }}"
   loop_control:

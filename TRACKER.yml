@@ -28,6 +28,9 @@ OPENED:
 CLOSED:
 ###############################################################################
 
+- id: 201610161149
+  task: add macos utility
+
 - id: 201610092349
   task: refactor present/absent scheme
 

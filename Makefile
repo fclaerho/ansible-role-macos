@@ -2,9 +2,12 @@
 
 BUILD_PATH := .build
 
-.PHONY: all check clean
+.PHONY: all check clean install
 
 all: check files/macos clean
+
+install:
+	$(MAKE) -f dummyplaybook.make install
 
 check:
 	$(MAKE) -f dummyplaybook.make check BUILD_PATH=$(BUILD_PATH)

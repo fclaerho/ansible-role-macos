@@ -85,9 +85,7 @@ FAQ
 _Q. On uninstalling an OS/X package, I get the error `failed to uninstall package -- you might miss credentials`._
 
 A. In that case, the .pkg was probably installed by the App Store with administrative credentials.
-You'll need to build a tiny helper called `system` with `make ~/bin/system` in the localhost dir.
-Then you can run `sudo system pkg com.example.Foo uninstall`.
-Re-run the playbook normally afterwards.
+You'll need the `macos`utility provided with the role to resolve the issue. Make sure it was installed by setting `macos_tool_state: present` then run:  `sudo macos pkg com.example.Foo uninstall`. Re-run the playbook normally afterwards.
 
 
 Development

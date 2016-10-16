@@ -4,6 +4,14 @@
 OPENED:
 ###############################################################################
 
+- id: 201610161528
+  task: add services support module
+  notes:
+  - "launchctl list | awk 'NR > 2 {print $1 "\t" $3}' | sort -k2"
+
+- id: 201610161151
+  task: add macOS CommandLineTools support
+
 - id: 201602212134
   bug: yes
   task: fix macos_app -- cleanup the notification center as well
@@ -27,6 +35,9 @@ OPENED:
 ###############################################################################
 CLOSED:
 ###############################################################################
+
+- id: 201610161536
+  task: cleanup files/ content and add a clean target to the top-level Makefile
 
 - id: 201610161149
   task: add macos utility

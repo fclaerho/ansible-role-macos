@@ -3,7 +3,7 @@
 
 _This [Ansible role](https://docs.ansible.com/playbooks_roles.html) brings macOS modules to manage apps, defaults, flags, and packages. It is primarily designed for a local user, to setup a work environment._
 
-[Variables](#variables) | [Development](#development)
+[Variables](#variables) | [FAQ](#faq) | [Development](#development)
 
 [![Build Status](https://travis-ci.org/fclaerho/ansible-role-macos.svg?branch=master)](https://travis-ci.org/fclaerho/ansible-role-macos)
 
@@ -79,7 +79,22 @@ See the `macos_flags` module for managing path flags.
 | `macos_paths` | [] | list of dict `{path:,locked:<bool>}` |
 
 
+FAQ
+---
+
+_Q. On uninstalling an OS/X package, I get the error `failed to uninstall package -- you might miss credentials`._
+
+A. In that case, the .pkg was probably installed by the App Store with administrative credentials.
+You'll need to build a tiny helper called `system` with `make ~/bin/system` in the localhost dir.
+Then you can run `sudo system pkg com.example.Foo uninstall`.
+Re-run the playbook normally afterwards.
+
+
 Development
 -----------
 
-Run `make check` to validate the role on macOS.
+To validate the role, run `make check`.
+
+If any of the library modules, or `macos.py`, is modified, re-compile macos by running `make files/macos`.
+
+You can also run `make all` to do all of this above and cleanup build byproducts.

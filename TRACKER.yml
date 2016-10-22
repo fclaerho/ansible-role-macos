@@ -4,6 +4,10 @@
 OPENED:
 ###############################################################################
 
+- id: 201610161626
+  bug: yes
+  task: add docopt to the macos pyz on compilation
+
 - id: 201610161528
   task: add services support module
   notes:
@@ -35,6 +39,10 @@ OPENED:
 ###############################################################################
 CLOSED:
 ###############################################################################
+
+- id: 201610222024
+  task: fix macos_flags -- fails to recognize that ls -ldO returning - == nouchange
+  notes: other defaults have to be added too
 
 - id: 201610161536
   task: cleanup files/ content and add a clean target to the top-level Makefile

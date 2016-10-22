@@ -71,7 +71,7 @@ def get_flags(path):
 	# You can use "ls -lO" to see the flags of existing files.
 	stdout = subprocess.check_output([u"ls", u"-dlO", path]).decode(u"utf-8")
 	_, _, _, _, value, _, _, _, _, _ = stdout.splitlines()[0].split()
-	return value.split(u",") if value != u"-" else ()
+	return value.split(u",") if value != u"-" else [u"nouchange"] # default to be completed
 
 def set_flags(path, flags):
 	subprocess.check_call([u"chflags", u"-LR", u",".join(flags), path])

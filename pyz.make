@@ -7,6 +7,7 @@ Usage:
   make -f pyz.make MAIN_FILE=… SRC_FILES="…" TGT_NAME=…
 
 Variables:
+	BUILD_DIR -- build directory [default: .build]
   MAIN_FILE -- entry module path
   SRC_FILES -- space separated list of file paths
   TGT_NAME  -- name of the final executable
@@ -29,29 +30,29 @@ ifndef TGT_NAME
 $(error TGT_NAME is undefined$(_USAGE))
 endif
 
-BUILD_PATH ?= .build
+BUILD_DIR ?= .build
 
 ### PRIVATE IMPLEMENTATION ####################################################
 
-_TGT_FILE := $(BUILD_PATH)/$(notdir $(TGT_NAME))
+_TGT_FILE := $(BUILD_DIR)/$(notdir $(TGT_NAME))
 PYTHON ?= /usr/bin/python
 SHELL := /bin/bash -o pipefail
 
-$(_TGT_FILE): $(_TGT_FILE).unittest $(BUILD_PATH)/__main__.py $(SRC_FILES) | $(BUILD_PATH)
+$(_TGT_FILE): $(_TGT_FILE).unittest $(BUILD_DIR)/__main__.py $(SRC_FILES) | $(BUILD_DIR)
 	zip --junk-paths $@.zip $(filter %.py, $^)
 	echo '#!$(PYTHON)' > $@
 	cat $@.zip >> $@
 	chmod +x $@
 	$@ --version | xargs -I{} echo "Version {}"
 
-$(_TGT_FILE).unittest: $(SRC_FILES) | $(BUILD_PATH)
+$(_TGT_FILE).unittest: $(SRC_FILES) | $(BUILD_DIR)
 ifdef TESTS_DIRS
 	$(PYTHON) -m unittest discover -v $(TESTS_DIRS)
 endif
 	touch $@
 
-$(BUILD_PATH)/__main__.py: $(MAIN_FILE) $(SRC_FILES) | $(BUILD_PATH)
-	cat $^ | md5 | xargs -I{} sed -e 's%__BUILDHASH__%{}%g' -e 's%__TGTNAME__%$(TGT_NAME)%g' $< > $@
+$(BUILD_DIR)/__main__.py: $(MAIN_FILE) $(SRC_FILES) | $(BUILD_DIR)
+	cat $^ | md5 | xargs -I{} sed -e 's@__BUILDHASH__@{}@g' -e 's@__TGTNAME__@$(TGT_NAME)@g' $< > $@
 
-$(BUILD_PATH):
-	mkdir -p $(BUILD_PATH)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
